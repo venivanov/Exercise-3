@@ -3,7 +3,18 @@
 		<App id="app">
 			<pages>
 				<Page id="page" title="{i18n>title}">
-					<content></content>
+					<content>
+						<Panel id="tablePanel" headerText="{i18n>tablePanelTitle}" class="sapUiResponsiveMargin" width="auto">
+							<content>
+								<List id="table" headerText="{i18n>tableTitle}" items="{path : 'productsModel>/ProductCollection'}"> 
+									<StandardListItem title="{productsModel>Name}" 
+												      counter="{productsModel>Quantity}" 
+													  info="{productsModel>Status}"
+													  />
+								</List>
+							</content>
+						</Panel>
+					</content>
 				</Page>
 			</pages>
 		</App>
