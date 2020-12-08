@@ -4,16 +4,50 @@
 			<pages>
 				<Page id="page" title="{i18n>title}">
 					<content>
-						<Panel id="tablePanel" headerText="{i18n>tablePanelTitle}" class="sapUiResponsiveMargin" width="auto">
-							<content>
-								<List id="table" headerText="{i18n>tableTitle}" items="{path : 'productsModel>/ProductCollection'}"> 
-									<StandardListItem title="{productsModel>Name}" 
-												      counter="{productsModel>Quantity}" 
-													  info="{productsModel>Status}"
-													  />
-								</List>
-							</content>
-						</Panel>
+						<Table id="table" headerText="{i18n>tableTitle}" inset="false" items="{ path: 'productsModel>/ProductCollection' }">
+
+							<headerToolbar>
+								<Toolbar>
+									<Title text="{i18n>productsListTitle}"/>
+									<ToolbarSpacer/>
+									<SearchField width="50%" search=".onFilterProducts"/>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column width="30%">
+									<Text text="{i18n>productsListProduct}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>productsListStatus}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>productsListSupplier}"/>
+								</Column>
+								<Column hAlign="End">
+									<Text text="{i18n>productsListDimensions}"/>
+								</Column>
+								<Column hAlign="End">
+									<Text text="{i18n>productsListWeight}"/>
+								</Column>
+								<Column hAlign="End">
+									<Text text="{i18n>productsListPrice}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectIdentifier title="{productsModel>Name}" text="{productsModel>ProductId}"/>
+										<Text text="{ path: 'productsModel>Status', formatter: '.formatter.statusText' }"/>
+										<Text text="{productsModel>SupplierName}"/>
+										<Text text="{productsModel>Width} x {productsModel>Depth} x {productsModel>Height} {productsModel>DimUnit}"/>
+										<ObjectNumber number="{productsModel>WeightMeasure}" unit="{productsModel>WeightUnit}"/>
+										<ObjectNumber
+											number="{ parts:[{path:'productsModel>Price'},{path:'productsModel>CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+											unit="{productsModel>CurrencyCode}" state="{= ${productsModel>Price} > 1500 ? 'Error' : 'Success' }"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
 					</content>
 				</Page>
 			</pages>
